@@ -66,7 +66,8 @@ const Navbar = () => {
               </Link>
 
               <Link
-                to="/future"
+                // to="/future"
+                to="/"
                 className={`${isActive(
                   "/future"
                 )} hover:text-white transition-colors`}
@@ -75,18 +76,22 @@ const Navbar = () => {
               </Link>
 
               <Link
-                to="/innovations"
+                // to="/innovations"
+                to="/"
                 className={`${isActive(
                   "/innovations"
+                  
                 )} hover:text-white transition-colors`}
               >
                 innovations
               </Link>
 
               <Link
-                to="/about"
+                // to="/about"
+                to="/"
                 className={`${isActive(
                   "/about"
+                
                 )} hover:text-white transition-colors`}
               >
                 About
@@ -156,7 +161,7 @@ const Navbar = () => {
             <Link
               to="/"
               className={`block text-white px-3 py-2 rounded-md ${isActive(
-                "/features"
+                "/"
               )} hover:text-white hover:bg-purple-50 transition-colors`}
               onClick={() => setIsMenuOpen(false)}
             >
@@ -174,7 +179,8 @@ const Navbar = () => {
             </Link>
 
             <Link
-              to="/future"
+              // to="/future"
+              to="/"
               className={`block px-3 py-2 text-white rounded-md ${isActive(
                 "/future"
               )} hover:text-white hover:bg-purple-50 transition-colors`}
@@ -184,7 +190,8 @@ const Navbar = () => {
             </Link>
 
             <Link
-              to="/innovations"
+              // to="/innovations"
+              to="/"
               className={`block px-3 py-2 text-white rounded-md ${isActive(
                 "/innovations"
               )} hover:text-white hover:bg-purple-50 transition-colors`}
@@ -194,7 +201,8 @@ const Navbar = () => {
             </Link>
 
             <Link
-              to="/about"
+              // to="/about"
+              to="/"
               className={`block px-3 py-2 text-white rounded-md ${isActive(
                 "/about"
               )} hover:text-white hover:bg-purple-50 transition-colors`}
