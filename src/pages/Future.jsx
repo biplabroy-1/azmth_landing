@@ -1,12 +1,11 @@
 import React from 'react'
 
-const About = () => {
+const Future = () => {
   return (
     <div>
-      About
-      
+      Future
     </div>
   )
 }
 
-export default About
+export default Future
