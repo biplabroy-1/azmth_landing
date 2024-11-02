@@ -30,7 +30,7 @@ const Home = () => {
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-white">
           The ultimate AI Personal Asistant{" "}
           <span className="bg-gradient-to-r from-[#003e4b] to-[#00ff99]  text-transparent bg-clip-text leading-normal">
-            azmath
+            azmth
           </span>
         </h1>
         <p className="text-xl text-white mb-8 max-w-2xl">
