@@ -100,7 +100,8 @@ const Navbar = () => {
               <Button
                 variant="outline"
                 className="mr-2"
-                onClick={() => navigate("/Login")}
+                // onClick={() => navigate("/Login")}
+                onClick={() => navigate("/")}
               >
                 Log In
               </Button>
@@ -216,7 +217,8 @@ const Navbar = () => {
                 variant="outline"
                 className="w-full transition-colors backdrop-blur-md"
                 onClick={() => {
-                  navigate("/Login");
+                  // navigate("/Login");
+                  navigate("/");
                   setIsMenuOpen(false);
                 }}
               >
