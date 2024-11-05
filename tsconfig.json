@@ -9,6 +9,9 @@
     }
   ],
   "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,  // Optional: allows JS files without type checking
+    "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
