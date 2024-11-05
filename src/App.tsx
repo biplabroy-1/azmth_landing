@@ -1,15 +1,14 @@
 // App.js
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import Features from "./pages/Features";
-import Pricing from "./pages/Pricing";
-import About from "./pages/About";
-import Dashboard from "./pages/Dashboard";
-import Innovations from "./pages/Innovations";
-import Future from "./pages/Future";
-import Login from "./pages/Login";
+import Navbar from "./components/Navbar.jsx";
+import Home from "./pages/Home.jsx";
+import Features from "./pages/Features.jsx";
+import Pricing from "./pages/Pricing.jsx";
+import About from "./pages/About.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import Innovations from "./pages/Innovations.jsx";
+import Future from "./pages/Future.jsx";
+import Login from "./pages/Login.jsx";
 
 const App = () => {
   return (
