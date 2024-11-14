@@ -61,7 +61,7 @@ const Home = () => {
           Why azmth?
         </h2>
         {/* <div className="grid md:grid-cols-3 gap-8"> */}
-        <div className="flex gap-8">
+        <div className=" gap-8 flex flex-col md:flex">
           <FeatureCard
             // icon={BrainCircuit}
             title="Vision"
