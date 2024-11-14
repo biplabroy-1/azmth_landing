@@ -5,10 +5,13 @@ import { ArrowRight, Brain, Zap, Shield, MessageSquare, BrainCircuit, EarthLock,
 import { Button } from "@/components/ui/button";
 import { FeatureCard } from "../components/FeatureCard";
 import { Footer } from "../components/Footer";
+import WaitlistModal from "../components/WaitlistModal";
+import { useState } from "react";
+
 
 const Home = () => {
   const navigate = useNavigate();
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
       {/* Hero Section */}
@@ -40,9 +43,11 @@ const Home = () => {
           <Button
             size="lg"
             className="bg-gradient-to-r from-[#003e4b] to-[#00ff99]"
-            onClick={() => navigate("/features")}
+            onClick={() => {
+              setIsModalOpen(true);
+            }}
           >
-            Get Started <ArrowRight className="ml-2 h-4 w-4" />
+            Join Waitlist <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
           <Button size="lg" variant="outline">
             Watch Demo
@@ -55,22 +60,23 @@ const Home = () => {
         <h2 className="text-5xl font-thin text-white text-center mb-12">
           Why azmth?
         </h2>
-        <div className="grid md:grid-cols-3 gap-8">
+        {/* <div className="grid md:grid-cols-3 gap-8"> */}
+        <div className="flex gap-8">
           <FeatureCard
-            icon={BrainCircuit}
-            title="Not another dumb AI agent"
-            description="Analyse situations to provide help in need. This is first time an AI can understand what's going on"
+            // icon={BrainCircuit}
+            title="Vision"
+            description="Azmth us more than just a tool; it's a symbol of status and efficiency. Designed for those who are constantly on the move, juggling multiple responsibilities and striving to make a meaningful impact on the world. It is not just about getting things done- it is about getting the right things done at the right time, effortlessly."
           />
           <FeatureCard
-            icon={EarthLock}
-            title="Secure Cognition"
-            description="First AI of it's kind to empathise, organise and recall it's own memories with advanced cognitive capabilities"
+            // icon={EarthLock}
+            title="Mission"
+            description="To empower busy individuals by removing the friction of daily tasks and mental clutter, allowing them to focus on what truly matters."
           />
-          <FeatureCard
+          {/* <FeatureCard
             icon={BotMessageSquare}
             title="JARVIS ka chota bhai"
             description="The only PA, remembers everything ask anywhere anytime"
-          />
+          /> */}
         </div>
       </section>
 
@@ -92,8 +98,9 @@ const Home = () => {
           </Button>
         </div>
       </section>
-
+      <WaitlistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <Footer />
+
     </>
   );
 };

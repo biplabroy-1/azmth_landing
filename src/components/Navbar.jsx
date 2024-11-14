@@ -1,13 +1,12 @@
-// components/Navbar.js
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Brain, Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import WaitlistModal from "./WaitlistModal";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -19,18 +18,10 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Fixed Header Strip */}
       <div className="fixed top-0 left-0 right-0 bg-[#052127] border-b border-gray-200 z-50">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <Link
-              to="/"
-              className="flex items-center justify-center space-x-2 "
-            >
-              {/* <Brain className="h-8 w-8 text-purple-600" /> */}
-              {/* <a className="font-normal text-5xl text-white">a</a> */}
-              {/* <span className="font-bold text-5xl text-white ">a</span> */}
+            <Link to="/" className="flex items-center justify-center space-x-2">
               <svg
                 width="19"
                 height="20"
@@ -45,73 +36,38 @@ const Navbar = () => {
               </svg>
             </Link>
 
-            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              <Link
-                to="/"
-                className={`${isActive(
-                  "/"
-                )} hover:text-white transition-colors`}
-              >
+              <Link to="/" className={`${isActive("/")} hover:text-white transition-colors`}>
                 Home
               </Link>
-
-              <Link
-                to="/pricing"
-                className={`${isActive(
-                  "/pricing"
-                )} hover:text-white transition-colors`}
-              >
+              <Link to="/pricing" className={`${isActive("/pricing")} hover:text-white transition-colors`}>
                 Pricing
               </Link>
-
-              <Link
-                // to="/future"
-                to="/"
-                className={`${isActive(
-                  "/future"
-                )} hover:text-white transition-colors`}
-              >
+              <Link to="/" className={`${isActive("/future")} hover:text-white transition-colors`}>
                 Future
               </Link>
-
-              <Link
-                // to="/innovations"
-                to="/"
-                className={`${isActive(
-                  "/innovations"
-                  
-                )} hover:text-white transition-colors`}
-              >
-                innovations
+              <Link to="/" className={`${isActive("/innovations")} hover:text-white transition-colors`}>
+                Innovations
               </Link>
-
-              <Link
-                // to="/about"
-                to="/"
-                className={`${isActive(
-                  "/about"
-                
-                )} hover:text-white transition-colors`}
-              >
+              <Link to="/" className={`${isActive("/about")} hover:text-white transition-colors`}>
                 About
               </Link>
 
-              <Button
-                variant="outline"
-                className="mr-2"
-                // onClick={() => navigate("/Login")}
+              <button
+                className="px-4 py-2 rounded-md border border-gray-300 text-white hover:bg-gray-700 transition-colors"
                 onClick={() => navigate("/")}
               >
                 Log In
-              </Button>
+              </button>
 
-              <Button className="bg-gradient-to-r from-[#003e4b] to-[#00ff99] transition-colors">
-                Get Started
-              </Button>
+              <button 
+                className="px-4 py-2 rounded-md text-white bg-gradient-to-r from-[#003e4b] to-[#00ff99] hover:opacity-90 transition-colors"
+                onClick={() => setIsModalOpen(true)}
+              >
+                Join Waitlist
+              </button>
             </div>
 
-            {/* Mobile menu button */}
             <button
               className="md:hidden p-2 rounded-md text-gray-600 hover:text-white transition-colors"
               onClick={toggleMenu}
@@ -138,10 +94,8 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Spacer for fixed header */}
       <div className="h-16" />
 
-      {/* Mobile Navigation Overlay */}
       <div
         className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 md:hidden ${
           isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -150,7 +104,6 @@ const Navbar = () => {
         onClick={() => setIsMenuOpen(false)}
       />
 
-      {/* Mobile Navigation Menu */}
       <div
         className={`fixed left-0 right-0 backdrop-blur-md shadow-lg transform transition-transform duration-300 ease-in-out origin-top md:hidden ${
           isMenuOpen ? "translate-y-0" : "-translate-y-full"
@@ -161,76 +114,65 @@ const Navbar = () => {
           <div className="py-6 space-y-4">
             <Link
               to="/"
-              className={`block text-white px-3 py-2 rounded-md ${isActive(
-                "/"
-              )} hover:text-white hover:bg-purple-50 transition-colors`}
+              className="block text-white px-3 py-2 rounded-md hover:text-white hover:bg-purple-50 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               Home
             </Link>
-
             <Link
               to="/pricing"
-              className={`block text-white px-3 py-2 rounded-md ${isActive(
-                "/pricing"
-              )} hover:text-white hover:bg-purple-50 transition-colors`}
+              className="block text-white px-3 py-2 rounded-md hover:text-white hover:bg-purple-50 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              pricing
+              Pricing
             </Link>
-
             <Link
-              // to="/future"
               to="/"
-              className={`block px-3 py-2 text-white rounded-md ${isActive(
-                "/future"
-              )} hover:text-white hover:bg-purple-50 transition-colors`}
+              className="block px-3 py-2 text-white rounded-md hover:text-white hover:bg-purple-50 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              future
+              Future
             </Link>
-
             <Link
-              // to="/innovations"
               to="/"
-              className={`block px-3 py-2 text-white rounded-md ${isActive(
-                "/innovations"
-              )} hover:text-white hover:bg-purple-50 transition-colors`}
+              className="block px-3 py-2 text-white rounded-md hover:text-white hover:bg-purple-50 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              innovations
+              Innovations
             </Link>
-
             <Link
-              // to="/about"
               to="/"
-              className={`block px-3 py-2 text-white rounded-md ${isActive(
-                "/about"
-              )} hover:text-white hover:bg-purple-50 transition-colors`}
+              className="block px-3 py-2 text-white rounded-md hover:text-white hover:bg-purple-50 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              about
+              About
             </Link>
 
             <div className="space-y-2 pt-2">
-              <Button
-                variant="outline"
-                className="w-full transition-colors backdrop-blur-md"
+              <button
+                className="w-full px-4 py-2 rounded-md border border-gray-300 text-white hover:bg-gray-700 transition-colors"
                 onClick={() => {
-                  // navigate("/Login");
                   navigate("/");
                   setIsMenuOpen(false);
                 }}
               >
                 Log in
-              </Button>
-              <Button className="w-full bg-gradient-to-r from-[#003e4b] to-[#00ff99] transition-colors">
-                Get Started
-              </Button>
+              </button>
+              <button 
+                className="w-full px-4 py-2 rounded-md text-white bg-gradient-to-r from-[#003e4b] to-[#00ff99] hover:opacity-90 transition-colors"
+                onClick={() => {
+                  setIsModalOpen(true);
+                  setIsMenuOpen(false);
+                }}
+              >
+                Join Waitlist
+              </button>
             </div>
           </div>
         </div>
       </div>
+
+      <WaitlistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 };
