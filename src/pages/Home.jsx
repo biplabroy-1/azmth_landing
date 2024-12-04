@@ -31,7 +31,7 @@ const Home = () => {
     <>
       <div className="container mx-auto flex flex-col md:flex-row items-center gap-8">
 
-        <div className="w-full md:w-1/2">
+        <div className="w-full mt-16 md:w-1/2">
           <div className="bg-[#081c20] p-8 rounded-lg flex flex-col h-[600px]">
             {/* Messages Area */}
             <div className="flex-1 overflow-y-auto mb-4">
@@ -66,7 +66,7 @@ const Home = () => {
               />
               <Button
                 type="submit"
-                className="bg-gradient-to-r from-[#003e4b] to-[#00ff99]"
+                className="bg-gradient-to-r from-[#003e4b] to-[#00ff99] h-full"
               >
                 Send
               </Button>

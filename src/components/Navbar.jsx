@@ -37,25 +37,25 @@ const Navbar = () => {
             </Link>
 
             <div className="hidden md:flex items-center space-x-8">
-              <Link to="/" className={`${isActive("/")} hover:text-white transition-colors`}>
+              <Link to="/" className={`${isActive("/")} hover:text-[#00add1] transition-colors`}>
                 Home
               </Link>
-              <Link to="/pricing" className={`${isActive("/pricing")} hover:text-white transition-colors`}>
+              <Link to="/pricing" className={`${isActive("/pricing")} hover:text-[#00add1] transition-colors`}>
                 Pricing
               </Link>
-              <Link to="/" className={`${isActive("/future")} hover:text-white transition-colors`}>
+              <Link to="/future" className={`${isActive("/future")} hover:text-[#00add1] transition-colors`}>
                 Future
               </Link>
-              <Link to="/" className={`${isActive("/innovations")} hover:text-white transition-colors`}>
+              <Link to="/innovations" className={`${isActive("/innovations")} hover:text-[#00add1] transition-colors`}>
                 Innovations
               </Link>
-              <Link to="/" className={`${isActive("/about")} hover:text-white transition-colors`}>
+              <Link to="/about" className={`${isActive("/about")} hover:text-[#00add1] transition-colors`}>
                 About
               </Link>
 
               <button
                 className="px-4 py-2 rounded-md border border-gray-300 text-white hover:bg-gray-700 transition-colors"
-                onClick={() => navigate("/")}
+                onClick={() => navigate("/login")}
               >
                 Log In
               </button>
