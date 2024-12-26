@@ -6,37 +6,37 @@ const Team = () => {
     {
       name: "Dron Guin",
       role: "Founder, CTO",
-      image: "src/assets/Dron_guin.jpg",
+      image: "./assets/Dron_guin.jpg",
     },
     {
       name: "Priyanshu Singh",
       role: "Co-founder, CEO",
-      image: "src/assets/Priyanshu_singh.jpg",
+      image: "./assets/Priyanshu_singh.jpg",
     },
     {
       name: "Tridha Shaw",
       role: "CMO",
-      image: "src/assets/Tridha_shaw.jpg",
+      image: "./assets/Tridha_shaw.jpg",
     },
     {
       name: "Dwaipayan Biswas",
       role: "Lead App Developer",
-      image: "src/assets/Dwaipayan Biswas.jpg",
+      image: "./assets/Dwaipayan_Biswas.jpg",
     },
     {
       name: "Biplab Roy",
       role: "Dev Ops Engineer",
-      image: "src/assets/Biplab_roy.jpg",
+      image: "./assets/Biplab_roy.jpg",
     },
     {
       name: "Debarun Joardar",
       role: "AI Engineer",
-      image: "src/assets/Deabrun_joardar.jpg",
+      image: "./assets/Deabrun_joardar.jpg",
     },
     {
       name: "Apurba Pal",
       role: "3D Web Dev",
-      image: "src/assets/Apurba_pal.jpg",
+      image: "./assets/Apurba_pal.jpg",
     },
   ];
 
