@@ -9,11 +9,12 @@ import Dashboard from "./pages/Dashboard.jsx";
 import Innovations from "./pages/Innovations.jsx";
 import Future from "./pages/Future.jsx";
 import Login from "./pages/Login.jsx";
-
+import { Analytics } from "@vercel/analytics/react"
 const App = () => {
   return (
     <BrowserRouter>
       <div className="bg-gradient-to-b from-[#0b0f10] to-[#0f3d4c] min-h-screen">
+        <Analytics/>
         <Navbar/>
         <div className="bg-yellow-300 text-black text-center py-3">
       🚧 This website is still under construction. Some text may not be visible currectly. 🚧
