@@ -1,13 +1,24 @@
 // pages/Home.js
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Brain, Zap, Shield, MessageSquare, BrainCircuit, EarthLock, BotMessageSquare } from "lucide-react";
+import {
+  ArrowRight,
+  Brain,
+  Zap,
+  Shield,
+  MessageSquare,
+  BrainCircuit,
+  EarthLock,
+  BotMessageSquare,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FeatureCard } from "../components/FeatureCard";
 import { Footer } from "../components/Footer";
 import WaitlistModal from "../components/WaitlistModal";
 import { useState } from "react";
-
+import Team from "./Team";
+import FadeText from "../components/ui/fade-text";
+import InteractiveHoverButton  from '../components/ui/interactive-hover-button'
 
 const Home = () => {
   const navigate = useNavigate();
@@ -15,23 +26,21 @@ const Home = () => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!input.trim()) return;
 
     setMessages([...messages, { text: input, isUser: true }]);
     // Add response
-    setMessages(prev => [...prev, { text: "response", isUser: false }]);
+    setMessages((prev) => [...prev, { text: "response", isUser: false }]);
     setInput("");
   };
-
 
   return (
     <>
       <div className="container mx-auto flex flex-col md:flex-row items-center gap-8">
-
         {/* Hero Section */}
+
         <header className="container px-4 py-16 flex flex-col items-start z-0">
           <div className="p-4 bg-transparent rounded-2xl mb-6 flex gap-4 items-center">
             <svg
@@ -46,47 +55,46 @@ const Home = () => {
                 fill="white"
               />
             </svg>
-          <h1 className="text-4xl tracking-tighter md:text-5xl md:tracking-tight font-bold text-white text-left">
-            The Ultimate AI Personal Assistant{" "}
-            <span className="bg-gradient-to-r from-[#003e4b] to-[#00ff99] text-transparent bg-clip-text leading-normal">
-              azmth
-            </span>
-          </h1>
+            <h1 className="text-4xl tracking-tighter md:text-5xl md:tracking-tight font-bold text-white text-left">
+              The Ultimate AI Personal Assistant{" "}
+              <span className="bg-gradient-to-r from-[#003e4b] to-[#00ff99] text-transparent bg-clip-text leading-normal">
+                azmth
+              </span>
+            </h1>
           </div>
-          <p className="text-xl text-white mb-8 max-w-2xl text-left">
-            The smartest AI scheduler platform on the planet.
-          </p>
-          <div className="flex gap-4">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-[#003e4b] to-[#00ff99]"
-              onClick={() => {
-                setIsModalOpen(true);
-              }}
-            >
-              Join Waitlist <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <Button size="lg" variant="outline">
-              Watch Demo
-            </Button>
+          <div className="ml-10">
+            <p className="text-xl text-white mb-8 max-w-2xl text-left">
+              The smartest AI scheduler platform on the planet.
+            </p>
+            <div className="flex gap-4">
+              <InteractiveHoverButton
+                className="bg-gradient-to-r from-[#003e4b] to-[#00ff99] w-40 border-none hover:border-2 hover:border-white"
+                text="Join Waitlist"
+                onClick={() => {
+                  setIsModalOpen(true);
+                }}
+              >
+              </InteractiveHoverButton>
+            </div>
           </div>
         </header>
-
-        <div className="w-full mt-16 md:w-1/2">
+        <div className="w-full mt-8 md:w-1/2">
           <div className="bg-[#081c20] p-8 rounded-lg flex flex-col h-[600px]">
             {/* Messages Area */}
             <div className="flex-1 overflow-y-auto mb-4">
               {messages.map((message, index) => (
                 <div
                   key={index}
-                  className={`mb-4 ${message.isUser ? "text-right" : "text-left"
-                    }`}
+                  className={`mb-4 ${
+                    message.isUser ? "text-right" : "text-left"
+                  }`}
                 >
                   <div
-                    className={`inline-block p-3 rounded-lg ${message.isUser
-                      ? "bg-[#003e4b] text-white"
-                      : "bg-[#1a2c31] text-white"
-                      }`}
+                    className={`inline-block p-3 rounded-lg ${
+                      message.isUser
+                        ? "bg-[#003e4b] text-white"
+                        : "bg-[#1a2c31] text-white"
+                    }`}
                   >
                     {message.text}
                   </div>
@@ -117,10 +125,18 @@ const Home = () => {
       {/* Features Section */}
       <section className="container mx-auto px-4 py-16">
         <h2 className="text-5xl font-thin text-white text-center mb-12">
-          Why azmth?
+          <FadeText
+          className="text-5xl font-bold text-white"
+          direction="up"
+          framerProps={{
+            show: { transition: { delay: 0.2 } },
+          }}
+          text="Why azmth?"
+        />
         </h2>
+
         {/* <div className="grid md:grid-cols-3 gap-8"> */}
-        <div className=" gap-8 flex flex-col md:flex">
+        <div className="gap-8 flex md:flex">
           <FeatureCard
             // icon={BrainCircuit}
             title="Vision"
@@ -133,7 +149,9 @@ const Home = () => {
           />
         </div>
       </section>
-
+      <section>
+        <Team />
+      </section>
       {/* CTA Section */}
       <section className=" py-16 bg-[#081c20]">
         <div className="container mx-auto px-4 text-center">
@@ -143,18 +161,21 @@ const Home = () => {
           {/* <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
             
           </p> */}
-          <Button
-            size="lg"
-            className="bg-gradient-to-r from-[#003e4b] to-[#00ff99] hover:bg-gradient-to-l "
-            onClick={() => navigate("/pricing")}
-          >
-            Start Free Trial
-          </Button>
+          <InteractiveHoverButton
+                className="bg-gradient-to-r from-[#003e4b] to-[#00ff99] w-48"
+                text="Start Free Trial"
+                onClick={() => {
+                  setIsModalOpen(true);
+                }}
+              >
+              </InteractiveHoverButton>
         </div>
       </section>
-      <WaitlistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <WaitlistModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
       <Footer />
-
     </>
   );
 };

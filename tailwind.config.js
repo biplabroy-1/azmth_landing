@@ -4,28 +4,46 @@ module.exports = {
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
   	extend: {
-		animation: {
-			'gradient-slow': 'gradient-slow 15s ease infinite', // Much slower animation
-		  },
-		  keyframes: {
-			'gradient-slow': {
-			  '0%': {
-				'background-position': '0% 50%',
-				'background-size': '400% 400%'
-			  },
-			  '50%': {
-				'background-position': '100% 50%',
-				'background-size': '200% 200%'
-			  },
-			  '100%': {
-				'background-position': '0% 50%',
-				'background-size': '400% 400%'
-			  }
-			}
-		  },
-		fontFamily: {
-			sans: ['Urbanist', 'sans-serif'],
-		  },
+  		animation: {
+  			'gradient-slow': 'gradient-slow 15s ease infinite',
+  			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
+  			'background-position-spin': 'background-position-spin 3000ms infinite alternate'
+  		},
+  		keyframes: {
+  			'gradient-slow': {
+  				'0%': {
+  					'background-position': '0% 50%',
+  					'background-size': '400% 400%'
+  				},
+  				'50%': {
+  					'background-position': '100% 50%',
+  					'background-size': '200% 200%'
+  				},
+  				'100%': {
+  					'background-position': '0% 50%',
+  					'background-size': '400% 400%'
+  				}
+  			},
+  			'border-beam': {
+  				'100%': {
+  					'offset-distance': '100%'
+  				}
+  			},
+  			'background-position-spin': {
+  				'0%': {
+  					backgroundPosition: 'top center'
+  				},
+  				'100%': {
+  					backgroundPosition: 'bottom center'
+  				}
+  			}
+  		},
+  		fontFamily: {
+  			sans: [
+  				'Urbanist',
+  				'sans-serif'
+  			]
+  		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
