@@ -143,7 +143,7 @@ const Pricing = () => {
   ];
 
   return (
-    <section className="relative z-10 overflow-hidden bg-[#052127] pb-12 pt-20 dark:bg-dark lg:pb-[90px] lg:pt-[120px]">
+    <section className="px-8 relative z-10 overflow-hidden bg-[#052127] pb-12 pt-20 dark:bg-dark lg:pb-[90px] lg:pt-[120px]">
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4">

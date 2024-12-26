@@ -1,48 +1,79 @@
-// pages/Home.js
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { FeatureCard } from "../components/FeatureCard";
 import { Footer } from "../components/Footer";
 import WaitlistModal from "../components/WaitlistModal";
-import { useState } from "react";
 import Team from "./Team";
 import FadeText from "../components/ui/fade-text";
 import InteractiveHoverButton from "../components/ui/interactive-hover-button";
 import axios from "axios";
+import { Loader2 } from "lucide-react";
+
+// Typewriter effect component
+const TypewriterText = ({ text }) => {
+  const [displayText, setDisplayText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (currentIndex < text.length) {
+      const timeout = setTimeout(() => {
+        setDisplayText(prev => prev + text[currentIndex]);
+        setCurrentIndex(c => c + 1);
+      }, 5);
+      return () => clearTimeout(timeout);
+    }
+  }, [currentIndex, text]);
+
+  return <span>{displayText}</span>;
+};
 
 const Home = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef(null);
+
+  // const scrollToBottom = () => {
+  //   messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  // };
+
+  // useEffect(() => {
+  //   scrollToBottom();
+  // }, [messages]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    e.stopPropagation(); // Stop event propagation
     if (!input.trim()) return;
 
+  
     // Add user's message to the chat
     setMessages([...messages, { text: input, isUser: true }]);
-
+    setIsLoading(true);
+  
     try {
       // Send the input to the API
       const response = await axios.post("https://api.globaltfn.tech/getData", {
         userInput: input,
       });
-
+  
       // Add the API response to the chat
       setMessages((prev) => [
         ...prev,
-        { text: response.data.data || "No response", isUser: false },
+        { text: response.data.data || "No response", isUser: false, isNew: true },
       ]);
     } catch (error) {
       console.error("Error fetching data:", error);
       setMessages((prev) => [
         ...prev,
-        { text: "Error: Unable to fetch response", isUser: false },
+        { text: "Error: Unable to fetch response", isUser: false, isNew: true },
       ]);
     } finally {
       setInput(""); // Clear the input field
+      setIsLoading(false);
     }
   };
 
@@ -50,7 +81,6 @@ const Home = () => {
     <>
       <div className="container mx-auto flex flex-col md:flex-row items-center gap-8">
         {/* Hero Section */}
-
         <header className="container px-4 py-16 flex flex-col items-start z-0">
           <div className="p-4 bg-transparent rounded-2xl mb-6 flex gap-4 items-center">
             <svg
@@ -80,58 +110,90 @@ const Home = () => {
               <InteractiveHoverButton
                 className="bg-gradient-to-r from-[#003e4b] to-[#00ff99] w-40 border-none hover:border-2 hover:border-white"
                 text="Join Waitlist"
-                onClick={() => {
-                  setIsModalOpen(true);
-                }}
-              ></InteractiveHoverButton>
+                onClick={() => window.open("https://forms.visme.co/formsPlayer/dm4rnj6e-azmth-waitlist")}
+              />
             </div>
           </div>
         </header>
         <div className="w-full mt-8 md:w-1/2">
           <div className="bg-[#081c20] p-8 rounded-lg flex flex-col h-[600px]">
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto mb-4">
-              {messages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`mb-4 ${
-                    message.isUser ? "text-right" : "text-left"
-                  }`}
-                >
+            <div className="flex-1 overflow-y-auto mb-4 relative">
+              {messages.length === 0 ? (
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center">
+                  <p className="text-xl mb-2">👋 Hey there!</p>
+                  <p className="text-gray-400">Let's chat about how I can help you schedule and manage your tasks.</p>
+                </div>
+              ) : (
+                messages.map((message, index) => (
                   <div
-                    className={`inline-block p-3 rounded-lg ${
-                      message.isUser
-                        ? "bg-[#003e4b] text-white"
-                        : "bg-[#1a2c31] text-white"
+                    key={index}
+                    className={`mb-4 ${
+                      message.isUser ? "text-right" : "text-left"
                     }`}
                   >
-                    {message.text}
+                    <div
+                      className={`inline-block p-3 rounded-lg ${
+                        message.isUser
+                          ? "bg-[#003e4b] text-white"
+                          : "bg-[#1a2c31] text-white"
+                      }`}
+                    >
+                      {message.isNew && !message.isUser ? (
+                        <TypewriterText text={message.text} />
+                      ) : (
+                        message.text
+                      )}
+                    </div>
+                  </div>
+                ))
+              )}
+              {isLoading && (
+                <div className="text-left mb-4">
+                  <div className="inline-block p-3 rounded-lg bg-[#1a2c31] text-white">
+                    <Loader2 className="w-4 h-4 animate-spin" />
                   </div>
                 </div>
-              ))}
+              )}
+              <div ref={messagesEndRef} />
             </div>
 
             {/* Input Area */}
-            <form onSubmit={handleSubmit} className="flex gap-2">
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                className="flex-1 p-3 rounded-lg bg-[#1a2c31] text-white focus:outline-none focus:ring-2 focus:ring-[#00ff99]"
-                placeholder="Type your message..."
-              />
-              <Button
-                type="submit"
-                className="bg-gradient-to-r from-[#003e4b] to-[#00ff99] h-full"
-              >
-                Send
-              </Button>
-            </form>
+            <form 
+  onSubmit={handleSubmit} 
+  className="flex gap-2"
+  onKeyDown={(e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+  }}
+>
+  <input
+    type="text"
+    value={input}
+    onChange={(e) => setInput(e.target.value)}
+    className="flex-1 p-3 rounded-lg bg-[#1a2c31] text-white focus:outline-none focus:ring-2 focus:ring-[#00ff99]"
+    placeholder="Type your message..."
+  />
+  <Button
+    type="button" // Changed from "submit" to "button"
+    onClick={handleSubmit}
+    disabled={isLoading}
+    className="bg-gradient-to-r from-[#003e4b] to-[#00ff99] h-full"
+  >
+    {isLoading ? (
+      <Loader2 className="w-4 h-4 animate-spin" />
+    ) : (
+      'Send'
+    )}
+  </Button>
+</form>
           </div>
         </div>
       </div>
 
-      {/* Features Section */}
+      {/* Rest of your existing sections */}
       <section className="container mx-auto px-4 py-16">
         <h2 className="text-5xl font-thin text-white text-center mb-12">
           <FadeText
@@ -144,41 +206,35 @@ const Home = () => {
           />
         </h2>
 
-        {/* <div className="grid md:grid-cols-3 gap-8"> */}
-        <div className="gap-8 flex md:flex">
+        <div className="gap-8 flex flex-col md:flex-row">
           <FeatureCard
-            // icon={BrainCircuit}
             title="Vision"
             description="Azmth us more than just a tool; it's a symbol of status and efficiency. Designed for those who are constantly on the move, juggling multiple responsibilities and striving to make a meaningful impact on the world. It is not just about getting things done- it is about getting the right things done at the right time, effortlessly."
           />
           <FeatureCard
-            // icon={EarthLock}
             title="Mission"
             description="To empower busy individuals by removing the friction of daily tasks and mental clutter, allowing them to focus on what truly matters."
           />
         </div>
       </section>
+
       <section>
         <Team />
       </section>
-      {/* CTA Section */}
-      <section className=" py-16 bg-[#081c20]">
+
+      <section className="py-16 bg-[#081c20]">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-6 text-white">
-            Ready to become your best version ?
+            Ready to become your best version?
           </h2>
-          {/* <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-            
-          </p> */}
           <InteractiveHoverButton
             className="bg-gradient-to-r from-[#003e4b] to-[#00ff99] w-48"
             text="Start Free Trial"
-            onClick={() => {
-              setIsModalOpen(true);
-            }}
-          ></InteractiveHoverButton>
+            onClick={() => window.open("https://forms.visme.co/formsPlayer/dm4rnj6e-azmth-waitlist")}
+          />
         </div>
       </section>
+
       <WaitlistModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
