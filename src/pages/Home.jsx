@@ -1,16 +1,6 @@
 // pages/Home.js
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  ArrowRight,
-  Brain,
-  Zap,
-  Shield,
-  MessageSquare,
-  BrainCircuit,
-  EarthLock,
-  BotMessageSquare,
-} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FeatureCard } from "../components/FeatureCard";
 import { Footer } from "../components/Footer";
@@ -18,7 +8,8 @@ import WaitlistModal from "../components/WaitlistModal";
 import { useState } from "react";
 import Team from "./Team";
 import FadeText from "../components/ui/fade-text";
-import InteractiveHoverButton  from '../components/ui/interactive-hover-button'
+import InteractiveHoverButton from "../components/ui/interactive-hover-button";
+import axios from "axios";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -26,14 +17,33 @@ const Home = () => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
 
+    // Add user's message to the chat
     setMessages([...messages, { text: input, isUser: true }]);
-    // Add response
-    setMessages((prev) => [...prev, { text: "response", isUser: false }]);
-    setInput("");
+
+    try {
+      // Send the input to the API
+      const response = await axios.post("https://api.globaltfn.tech/getData", {
+        userInput: input,
+      });
+
+      // Add the API response to the chat
+      setMessages((prev) => [
+        ...prev,
+        { text: response.data.data || "No response", isUser: false },
+      ]);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setMessages((prev) => [
+        ...prev,
+        { text: "Error: Unable to fetch response", isUser: false },
+      ]);
+    } finally {
+      setInput(""); // Clear the input field
+    }
   };
 
   return (
@@ -73,8 +83,7 @@ const Home = () => {
                 onClick={() => {
                   setIsModalOpen(true);
                 }}
-              >
-              </InteractiveHoverButton>
+              ></InteractiveHoverButton>
             </div>
           </div>
         </header>
@@ -126,13 +135,13 @@ const Home = () => {
       <section className="container mx-auto px-4 py-16">
         <h2 className="text-5xl font-thin text-white text-center mb-12">
           <FadeText
-          className="text-5xl font-bold text-white"
-          direction="up"
-          framerProps={{
-            show: { transition: { delay: 0.2 } },
-          }}
-          text="Why azmth?"
-        />
+            className="text-5xl font-bold text-white"
+            direction="up"
+            framerProps={{
+              show: { transition: { delay: 0.2 } },
+            }}
+            text="Why azmth?"
+          />
         </h2>
 
         {/* <div className="grid md:grid-cols-3 gap-8"> */}
@@ -162,13 +171,12 @@ const Home = () => {
             
           </p> */}
           <InteractiveHoverButton
-                className="bg-gradient-to-r from-[#003e4b] to-[#00ff99] w-48"
-                text="Start Free Trial"
-                onClick={() => {
-                  setIsModalOpen(true);
-                }}
-              >
-              </InteractiveHoverButton>
+            className="bg-gradient-to-r from-[#003e4b] to-[#00ff99] w-48"
+            text="Start Free Trial"
+            onClick={() => {
+              setIsModalOpen(true);
+            }}
+          ></InteractiveHoverButton>
         </div>
       </section>
       <WaitlistModal
