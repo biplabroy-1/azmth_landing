@@ -9,6 +9,7 @@ import FadeText from "../components/ui/fade-text";
 import InteractiveHoverButton from "../components/ui/interactive-hover-button";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
+import { Helmet } from "react-helmet";
 
 // Typewriter effect component
 const TypewriterText = ({ text }) => {
@@ -29,20 +30,11 @@ const TypewriterText = ({ text }) => {
 };
 
 const Home = () => {
-  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
-
-  // const scrollToBottom = () => {
-  //   messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  // };
-
-  // useEffect(() => {
-  //   scrollToBottom();
-  // }, [messages]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -79,6 +71,10 @@ const Home = () => {
 
   return (
     <>
+        <Helmet>
+      <title>AZMTH - Home</title>
+      <meta name="description" content="Welcome to AZMTH - Your 24x7 AI assistant!" />
+    </Helmet>
       <div className="container mx-auto flex flex-col md:flex-row items-center gap-8">
         {/* Hero Section */}
         <header className="container px-4 py-16 flex flex-col items-start z-0">

@@ -8,7 +8,7 @@ const Navbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
 
-  const isActive = (path) => location.pathname === path ? "text-[#00add1]" : "text-gray-600";
+  const isActive = (path) => location.pathname === path ? "text-[#00add1] font-semibold" : "text-gray-200";
 
   const navItems = [
     { path: "/", label: "Home" },
