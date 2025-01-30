@@ -48,7 +48,7 @@ const Home = () => {
   
     try {
       // Send the input to the API
-      const response = await axios.post("https://api.globaltfn.tech/getData", {
+      const response = await axios.post("https://api.globaltfn.tech/aboutazmth", {
         userInput: input,
       });
   
